@@ -62,5 +62,13 @@ fun HomeScreen(
                 .fillMaxSize()
         )
     }
+}
+@Composable
+fun HomeBody(
+    statusUiSiswa: StatusUiSiswa,
+    onSiswaClick :(Int)-> Unit,
+    retryAction: ()-> Unit,
+    modifier: Modifier= Modifier
+){
 
 }
