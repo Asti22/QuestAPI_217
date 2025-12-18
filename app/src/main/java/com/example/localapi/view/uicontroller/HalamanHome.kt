@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 @Composable
 fun HomeScreen(
     navigateToItemEntry:()-> Unit,
+    navigateToItemUpdate :(Int)-> Unit
+
 
 ){
 
