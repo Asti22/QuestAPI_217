@@ -1,9 +1,6 @@
 package com.example.localapi.view.uicontroller
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -17,8 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
-
-// IMPORT MODEL & NAVIGATION
 import com.example.localapi.R
 import com.example.localapi.modeldata.DetailSiswa
 import com.example.localapi.modeldata.UIStateSiswa
@@ -63,6 +58,8 @@ fun EntrySiswaScreen(
         )
     }
 }
+
+// Fungsi EntrySiswaBody dan FormTambahSiswa tetap seperti kode Anda
 
 @Composable
 fun EntrySiswaBody(

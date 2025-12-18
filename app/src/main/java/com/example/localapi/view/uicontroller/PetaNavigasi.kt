@@ -9,15 +9,16 @@ import androidx.navigation.compose.rememberNavController
 import com.example.localapi.view.route.DestinasiEntry
 import com.example.localapi.view.route.DestinasiHome
 
+/**
+ * Fungsi utama yang dipanggil di MainActivity.
+ * Nama fungsi ini HARUS sama dengan yang dipanggil di MainActivity.kt
+ */
 @Composable
 fun DataSiswaApp(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
-    HostNavigasi(
-        navController = navController,
-        modifier = modifier
-    )
+    HostNavigasi(navController = navController, modifier = modifier)
 }
 
 @Composable
@@ -30,23 +31,19 @@ fun HostNavigasi(
         startDestination = DestinasiHome.route,
         modifier = modifier
     ) {
-
         composable(DestinasiHome.route) {
+            // Pastikan fungsi HomeScreen sudah ada di file HalamanHome.kt
             HomeScreen(
-                navigateToItemEntry = {
-                    navController.navigate(DestinasiEntry.route)
-                },
-                navigateToItemUpdate = {
-                    // navigasi update (opsional)
+                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
+                navigateToItemUpdate = { id ->
+                    // Navigasi update jika sudah diimplementasikan
                 }
             )
         }
-
         composable(DestinasiEntry.route) {
+            // Pastikan fungsi EntrySiswaScreen sudah ada di file HalamanEntry.kt
             EntrySiswaScreen(
-                navigateBack = {
-                    navController.popBackStack()
-                }
+                navigateBack = { navController.popBackStack() }
             )
         }
     }
