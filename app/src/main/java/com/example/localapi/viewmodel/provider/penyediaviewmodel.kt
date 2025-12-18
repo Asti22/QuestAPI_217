@@ -4,16 +4,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.localapi.AplikasiDataSiswa
 import com.example.localapi.repositori.DefaultContainerApp
-import com.example.localapi.viewmodel.EntryViewModel
-import com.example.localapi.viewmodel.HomeViewModel
+
 
 // Ambil Application (AplikasiDataSiswa) dari CreationExtras
+// Ambil Application dari CreationExtras
 fun CreationExtras.aplikasiDataSiswa(): DefaultContainerApp.AplikasiDataSiswa =
     this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
             as DefaultContainerApp.AplikasiDataSiswa
 
+
+// Factory untuk menyediakan ViewModel
 // Factory untuk menyediakan ViewModel
 object PenyediaViewModel {
 
@@ -32,3 +33,4 @@ object PenyediaViewModel {
         }
     }
 }
+

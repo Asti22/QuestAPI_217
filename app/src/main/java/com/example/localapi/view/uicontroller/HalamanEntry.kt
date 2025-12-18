@@ -23,8 +23,8 @@ import com.example.localapi.R
 import com.example.localapi.modeldata.DetailSiswa
 import com.example.localapi.modeldata.UIStateSiswa
 import com.example.localapi.view.route.DestinasiEntry
-import com.example.localapi.viewmodel.EntryViewModel
-import com.example.localapi.viewmodel.PenyediaViewModel
+import com.example.localapi.viewmodel.provider.EntryViewModel
+import com.example.localapi.viewmodel.provider.PenyediaViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

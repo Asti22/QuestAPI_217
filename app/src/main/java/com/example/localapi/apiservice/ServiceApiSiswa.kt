@@ -1,5 +1,6 @@
 package com.example.localapi.apiservice
 
+import com.example.localapi.modeldata.DataSiswa
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

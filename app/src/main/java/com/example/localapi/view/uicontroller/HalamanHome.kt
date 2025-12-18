@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Phone
@@ -40,40 +41,44 @@ import com.example.localapi.view.route.DestinasiHome
 import com.example.localapi.R
 import com.example.localapi.modeldata.DataSiswa
 import com.example.localapi.repositori.RepositoryDataSiswa
+import com.example.localapi.viewmodel.provider.HomeViewModel
+import com.example.localapi.viewmodel.provider.PenyediaViewModel
+import com.example.localapi.viewmodel.provider.StatusUiSiswa
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navigateToItemEntry:()-> Unit,
-    navigateToItemUpdate :(Int)-> Unit
+    navigateToItemEntry: () -> Unit,
+    navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
-){
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior ()
-    Scaffold (
+) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
+    Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SiswaTopAppBar(
                 title = stringResource(DestinasiHome.titleRes),
                 canNavigateBack = false,
-                scrollBehavior=scrollBehavior
+                scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(dimensionResource(id = R.dimen
-                    .padding_large))
+                modifier = Modifier.padding(
+                    dimensionResource(id = R.dimen.padding_large)
+                )
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = stringResource(R.string.entry_siswa)
                 )
             }
-        },
-    ){
-        innerPadding ->
+        }
+    ) { innerPadding ->
         HomeBody(
             statusUiSiswa = viewModel.listSiswa,
             onSiswaClick = navigateToItemUpdate,
@@ -84,37 +89,40 @@ fun HomeScreen(
         )
     }
 }
+
 @Composable
 fun HomeBody(
     statusUiSiswa: StatusUiSiswa,
-    onSiswaClick :(Int)-> Unit,
-    retryAction: ()-> Unit,
-    modifier: Modifier= Modifier
-){
-    Column (
+    onSiswaClick: (Int) -> Unit,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-    ){
-        when    (statusUiSiswa){
+    ) {
+        when (statusUiSiswa) {
             is StatusUiSiswa.Loading -> LoadingScreen()
-            is StatusUiSiswa.Success -> DaftarSiswa(itemSiswa=statusUiSiswa
-                .siswa,
-                onSiswaClick = {onSiswaClick(it.id)})
+            is StatusUiSiswa.Success -> DaftarSiswa(
+                itemSiswa = statusUiSiswa.siswa,
+                onSiswaClick = { onSiswaClick(it.id) }
+            )
             is StatusUiSiswa.Error -> ErrorScreen(
-                retryAction,
+                retryAction = retryAction,
                 modifier = modifier.fillMaxSize()
             )
         }
     }
 }
 @Composable
-fun LoadingScreen(modifier: Modifier= Modifier){
+fun LoadingScreen(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier.size(200.dp),
         painter = painterResource(R.drawable.loading_img),
         contentDescription = stringResource(R.string.loading)
     )
 }
+
 @Composable
 fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier= Modifier){
     Column (
@@ -134,20 +142,23 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier= Modifier){
 fun DaftarSiswa(
     itemSiswa: List<DataSiswa>,
     onSiswaClick: (DataSiswa) -> Unit,
-    modifier: Modifier= Modifier
-){
-    LazyColumn(modifier=modifier){
-        items(items= itemSiswa,key = {it.id}){
-            person ->
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier = modifier) {
+        items(
+            items = itemSiswa,
+            key = { it.id }
+        ) { siswa ->
             ItemSiswa(
-                siswa = person,
+                siswa = siswa,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable{onSiswaClick(person)}
+                    .clickable { onSiswaClick(siswa) }
             )
         }
     }
 }
+
 @Composable
 fun ItemSiswa(
     siswa: DataSiswa,

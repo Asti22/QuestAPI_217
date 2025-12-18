@@ -1,6 +1,7 @@
-package com.example.localapi.modeldata
+package com.example.localapi.repositori
 
 import com.example.localapi.apiservice.ServiceApiSiswa
+import com.example.localapi.modeldata.DataSiswa
 import retrofit2.Response
 
 interface RepositoryDataSiswa {
