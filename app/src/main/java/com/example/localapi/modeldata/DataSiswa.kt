@@ -4,10 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DataSiswa(
-    val id: Int,
-    val nama: String,
-    val alamat: String,
-    val telpon: String
+    val id : Int,
+    val nama : String,
+    val alamat : String,
+    val telpon : String
 )
 
 data class UIStateSiswa(
@@ -21,7 +21,6 @@ data class DetailSiswa(
     val alamat: String = "",
     val telpon: String = ""
 )
-
 
 fun DetailSiswa.toDataSiswa(): DataSiswa = DataSiswa(
     id = id,

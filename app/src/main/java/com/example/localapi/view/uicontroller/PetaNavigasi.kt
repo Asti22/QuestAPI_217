@@ -3,9 +3,11 @@ package com.example.localapi.view.uicontroller
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.localapi.view.route.DestinasiEntry
 import com.example.localapi.view.route.DestinasiHome
 
@@ -14,11 +16,8 @@ import com.example.localapi.view.route.DestinasiHome
  * Nama fungsi ini HARUS sama dengan yang dipanggil di MainActivity.kt
  */
 @Composable
-fun DataSiswaApp(
-    navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier
-) {
-    HostNavigasi(navController = navController, modifier = modifier)
+fun DataSiswaApp(navController: NavHostController = rememberNavController(), modifier: Modifier = Modifier) {
+    HostNavigasi(navController = navController)
 }
 
 @Composable
@@ -46,5 +45,17 @@ fun HostNavigasi(
                 navigateBack = { navController.popBackStack() }
             )
         }
+        composable(
+            route = DestinasiDetail.routeWithArgs,
+            arguments = listOf(navArgument(DestinasiDetail.itemIdArg) {
+                type = NavType.IntType
+            })
+        ){
+            DetailSiswaScreen(
+                navigateToEditItem = { navController.navigate("${DestinasiEdit.route}/$it") },
+                navigateBack = { navController.navigate(DestinasiHome.route) }
+            )
+        }
+
     }
 }
