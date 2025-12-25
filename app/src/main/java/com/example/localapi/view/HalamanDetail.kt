@@ -61,5 +61,46 @@ private fun BodyDetailSiswa(
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ){
+    Column(
+        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+    ) {
+        Column(
+            modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+        ) {
+            var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
 
-}
+            when (statusUiDetail) {
+                is StatusUIDetail.Loading -> {
+                    Text(text = "Loading...")
+                }
+                is StatusUIDetail.Success -> {
+                    ItemDetailSiswa(
+                        dataSiswa = statusUiDetail.satusiswa,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    OutlinedButton(
+                        onClick = { deleteConfirmationRequired = true },
+                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.delete))
+                    }
+                    if (deleteConfirmationRequired) {
+                        DeleteConfirmationDialog(
+                            onDeleteConfirm = {
+                                deleteConfirmationRequired = false
+                                onDelete()
+                            },
+                            onDeleteCancel = { deleteConfirmationRequired = false },
+                            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+                        )
+                    }
+                }
+                is StatusUIDetail.Error -> {
+                    Text(text = "Terjadi Kesalahan")
+                }
+            }
+        }
+    }
