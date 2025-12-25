@@ -21,3 +21,14 @@ fun DetailSiswaScreen(
                 navigateUp = navigateBack
             )
         },
+        floatingActionButton = {
+            val uiState = viewModel.statusUIDetail
+            FloatingActionButton(
+                onClick = {
+                    if (uiState is StatusUIDetail.Success) {
+                        navigateToEditItem(uiState.satusiswa.id) // Sesuai nama property di ViewModel Anda
+                    }
+                },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+            )
