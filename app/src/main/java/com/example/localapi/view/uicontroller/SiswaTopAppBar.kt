@@ -20,7 +20,7 @@ fun SiswaTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {}
-){
+) {
     CenterAlignedTopAppBar(
         title = { Text(title) },
         modifier = modifier,
@@ -28,10 +28,7 @@ fun SiswaTopAppBar(
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back)
-                    )
+                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                 }
             }
         }
