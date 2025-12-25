@@ -6,8 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.localapi.modeldata.DataSiswa
 import com.example.localapi.repositori.RepositoryDataSiswa
+import kotlinx.coroutines.launch
 
 
 sealed interface StatusUIDetail {
@@ -22,5 +24,20 @@ class DetailViewModel(
     private val idSiswa: Int = checkNotNull(savedStateHandle[DestinasiDetail.itemIdArg])
     var statusUIDetail: StatusUIDetail by mutableStateOf(StatusUIDetail.Loading)
         private set
+    init {
+        getSatuSiswa()
+    }
+    fun getSatuSiswa() {
+        viewModelScope.launch {
+            statusUIDetail = StatusUIDetail.Loading
+            statusUIDetail = try {
+                StatusUIDetail.Success(satusiswa = repositoryDataSiswa.getSatuSiswa(idSiswa))
+            } catch (e: IOException) {
+                StatusUIDetail.Error
+            } catch (e: HttpException) {
+                StatusUIDetail.Error
+            }
+        }
+    }
 
 }
